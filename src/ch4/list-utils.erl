@@ -4,11 +4,13 @@
   map/2,
   qsort/1,
   max/1,
-  filter/2
+  filter/2,
+  split/2
 ]).
 -export([
   map_test/0, sum_test/0, qsort_test/0, pythag_test/0,
-  perms_test/0, max_test/0, filter_test/0
+  perms_test/0, max_test/0, filter_test/0,
+  split_test/0
 ]).
 
 sum([Head | Tail]) -> Head + sum(Tail);
@@ -84,5 +86,29 @@ filter(_, []) -> []
 filter_test() ->
   F = fun(X) -> X < 3 end,
   [1, 2] = filter(F, [1, 2, 3]),
+  passed.
+
+split(F, L) ->
+  split_acc(F, L, [], []).
+
+split_acc(F, [Head | Tail], Left, Right) ->
+  case F(Head) of
+    true  -> split_acc(F, Tail, [Head | Left], Right);
+    false -> split_acc(F, Tail, Left, [Head | Right])
+  end;
+split_acc(_, [], Left, Right) ->
+  { lists:reverse(Left), lists:reverse(Right) }
+.
+
+split_test() ->
+  IsOdd =
+    fun(X) ->
+      case (X rem 2) of
+        1 -> true;
+        0 -> false
+      end
+    end,
+
+  {[1, 3], [2, 4]} = split(IsOdd, [1,2,3,4]),
   passed.
 
