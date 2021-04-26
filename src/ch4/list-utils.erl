@@ -1,6 +1,15 @@
 -module('list-utils').
--export([sum/1, sum/2, map/2, qsort/1]).
--export([map_test/0, sum_test/0, qsort_test/0, pythag_test/0, perms_test/0]).
+-export([
+  sum/1, sum/2,
+  map/2,
+  qsort/1,
+  max/1,
+  filter/2
+]).
+-export([
+  map_test/0, sum_test/0, qsort_test/0, pythag_test/0,
+  perms_test/0, max_test/0, filter_test/0
+]).
 
 sum([Head | Tail]) -> Head + sum(Tail);
 sum([]) -> 0.
@@ -52,3 +61,28 @@ perms_test() ->
   io:format("~p~n", [Out]),
   "123,132,213,231,312,321" = Out,
   passed.
+
+max([]) -> 0;
+max([Head | Tail]) ->
+  TailMax = max(Tail),
+  case Head >= TailMax of
+    true ->  Head;
+    false -> TailMax
+  end
+.
+max_test() ->
+  100 = max([1, 5, 4, 100, 5]),
+  passed.
+
+filter(F, [Head | Tail]) ->
+  case F(Head) of
+    true -> [Head | filter(F, Tail)];
+    false -> filter(F, Tail)
+  end;
+filter(_, []) -> []
+.
+filter_test() ->
+  F = fun(X) -> X < 3 end,
+  [1, 2] = filter(F, [1, 2, 3]),
+  passed.
+
