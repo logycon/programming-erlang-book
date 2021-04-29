@@ -1,5 +1,5 @@
--module(records).
--include("records.hrl").
+-module(myrecords).
+-include("myrecords.hrl").
 -export([test/0]).
 
 update_status(R, Status) when is_record(R, todo) ->

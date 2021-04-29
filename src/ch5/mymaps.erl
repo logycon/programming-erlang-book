@@ -21,5 +21,7 @@ test() ->
 
   % F4 = F1#{ c := 3}, -> Bad key exception
 
-
+  Henry8 = #{ class => king, born => 1491, died => 1547 },
+  io:format("~p ~n", [Henry8]),
+  
   pass.
