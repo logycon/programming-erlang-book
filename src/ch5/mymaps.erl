@@ -1,7 +1,6 @@
 -module(mymaps).
 -export([test/0]).
 
-
 test() ->
   Facts = #{
     {wife, fred} => "Sue",
@@ -23,5 +22,9 @@ test() ->
 
   Henry8 = #{ class => king, born => 1491, died => 1547 },
   io:format("~p ~n", [Henry8]),
-  
+
+  #{ born := B } = Henry8,
+  1491 = B,
+  io:format("~p ~n", [B]),
+
   pass.
