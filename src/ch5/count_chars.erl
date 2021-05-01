@@ -4,7 +4,7 @@
 count_characters(Str) ->
   count_characters(Str, #{}).
 
-%% variable H is inbound
+%% variable H is not bound
 %% http://erlang.2086793.n4.nabble.com/count-characters-example-from-Programming-Erlang-td4715594.html
 count_characters([H|T], #{ H := N }=X) ->
   count_characters(T, X#{ H := N+1 });
