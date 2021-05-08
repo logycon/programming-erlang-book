@@ -21,8 +21,10 @@ test() ->
 
   All = lists:flatmap(
     fun(M) -> % module
-      Exports = M:module_info(exports),
-      lists:map(fun({F, _}) -> {M, F} end, Exports)
+      lists:map(
+        fun({F, _}) -> {M, F} end,
+        M:module_info(exports)
+      )
     end,
     Mods
   ),
