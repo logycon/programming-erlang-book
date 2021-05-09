@@ -1,0 +1,8 @@
+% to be placed into ~/
+
+Username = os:getenv("username").
+{ok, [Home | _]} = init:get_argument(home).
+{ok, [Root | _]} = init:get_argument(root).
+
+io:format("Hello, ~s. I am your .erlang (~p) ~n", [Username, Home]).
+io:format("Erlang is installed in ~p ~n", Root).
